@@ -19,7 +19,4 @@ public class DBClient {
         }
     }
 
-    public static ArrayList<User> queryNearbyUsers(User user){
-        return null;
-    }
 }

@@ -15,11 +15,17 @@ public class User {
 
     public User(){
         this.name = "";
-        this.currentSong = "";
+        this.currentSong = "nothing";
         lat = 0;
         lon = 0;
-        id = "";
-        currentSong = "";
+    }
+
+    public String getCurrentSong(){
+        return currentSong;
+    }
+
+    public void setCurrentSong(String song){
+        this.currentSong = song;
     }
 
     public String getId(){
@@ -54,7 +60,9 @@ public class User {
     public User(String name){
         //userData = new File("user-data.txt");
         this.name = name;
-        this.currentSong = "";
+        this.currentSong = "Nothing";
+        this.lon = 0;
+        this.lat = 0;
     }
     public User(String name, double lon, double lat){
         //userData = new File("user-data.txt");
