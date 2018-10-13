@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void spotifyLogin(View view) {
-        Intent intent = new Intent(this, UserInterface.class);
+        Intent intent = new Intent(this, Music.class);
         EditText editTextUser = (EditText) findViewById(R.id.text_username);
         EditText editTextPass = (EditText) findViewById(R.id.text_password);
         String userMessage = editTextUser.getText().toString();
