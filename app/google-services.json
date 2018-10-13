@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "543735919682",
+    "firebase_url": "https://music-everywhere-app.firebaseio.com",
+    "project_id": "music-everywhere-app",
+    "storage_bucket": "music-everywhere-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543735919682:android:99d90d0041bb839a",
+        "android_client_info": {
+          "package_name": "com.example.andrew.musiceverywhere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543735919682-ha8tqirkpau31u6jj54hoju3ike53rle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.andrew.musiceverywhere",
+            "certificate_hash": "b339cf4790a7dde318522718e236be4add2376d1"
+          }
+        },
+        {
+          "client_id": "543735919682-0i3lf4glsltr00n8qq3uu2bj3jttdm61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0UYsyUy029uK0ghWIg05kXZtFphZkCPQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543735919682-0i3lf4glsltr00n8qq3uu2bj3jttdm61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
