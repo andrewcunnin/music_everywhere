@@ -8,23 +8,39 @@ import java.io.IOException;
 
 public class User {
     //private File userData;
-    private String name;
-    private double lat, lon;
     public String id;
+    private double lat, lon;
+    private String name;
     private String currentSong;
 
     public User(){
-        //userData = new File("user-data.txt");
         this.name = "";
         this.currentSong = "";
+        lat = 0;
+        lon = 0;
+        id = "";
+        currentSong = "";
     }
 
-    public String getID(){
+    public String getId(){
         return id;
     }
 
-    public void setID(String id){
+    public void setId(String id){
         this.id = id;
+    }
+
+    public void setLocation(double lon, double lat){
+        this.lon = lon;
+        this.lat = lat;
+    }
+
+    public double getLatitude(){
+        return lat;
+    }
+
+    public double getLongitude(){
+        return lon;
     }
 
     public String getName(){
