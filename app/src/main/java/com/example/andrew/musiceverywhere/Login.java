@@ -107,6 +107,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentUser.setCurrentSong(currentUser.getCurrentSong()+"f");
+                DBClient.writeToUser(currentUser);
             }
 
         });
@@ -173,10 +174,12 @@ public class Login extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class); //instead of this, get the user from the db and modify
                     DBClient.writeToUser(user);
+                    ((TextView) findViewById(R.id.textView)).setText("");
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
+                    ((TextView) findViewById(R.id.textView)).setText("ERROR");
                     Log.d("ERROR: ", "CANCEL USER READ");
                 }
             });
