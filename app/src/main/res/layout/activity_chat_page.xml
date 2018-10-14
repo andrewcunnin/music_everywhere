@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ChatPage">
 
-    <ListView android:layout_width="fill_parent"
+    <ListView
+        android:id="@+id/mainListView"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/mainListView">
-    </ListView>
+        android:scrollbars="vertical"></ListView>
 
 
 </android.support.constraint.ConstraintLayout>
