@@ -228,6 +228,7 @@ public class Login extends AppCompatActivity {
 
             public void onEvent(PlayerState playerState) {
                 final Track track = playerState.track;
+
                 if (track != null) {
                     currentUser.setCurrentSong(track.name + " by " + track.artist.name + " from the album " + track.album.name);
                     DBClient.writeToUser(currentUser);
@@ -236,6 +237,7 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
 }
 
 

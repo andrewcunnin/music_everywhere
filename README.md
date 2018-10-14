@@ -7,3 +7,17 @@
 - run 'git init'
 - run 'git remote add origin https://github.com/andrewcunnin/music_everywhere'
 - run 'git pull origin master'
+
+## Features Implemented
+- push and pull data from Spotify in real-time
+- maintain user location
+- view other users' data in real-time
+
+## Features to Implement
+- query users by location
+- pretty UI
+- add chat feature
+- retrieve Spotify profile information
+
+## Existing Bugs
+- user duplication when app isn't properly shutdown but user rejoins app
