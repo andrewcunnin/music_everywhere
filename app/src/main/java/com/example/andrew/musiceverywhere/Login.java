@@ -21,8 +21,12 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseError;
@@ -59,6 +63,9 @@ public class Login extends AppCompatActivity {
     private static final String CLIENT_ID = "168b4446175b4585abf5f0366d0c727a";
     private static final String REDIRECT_URI = "music-everywhere://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
+    public static ArrayAdapter listAdapter;
+    public static ArrayList<String> songIds;
+    public static ArrayList<String> listItems = new ArrayList<>();
 
 
     @Override
@@ -88,7 +95,20 @@ public class Login extends AppCompatActivity {
         users = new ArrayList<User>();
         Query query = ref.orderByChild("name"); //temp query proof of concept for getting other users from db
 
-        ((TextView) findViewById(R.id.textView)).setText("");
+        ListView mainListView = (ListView) findViewById( R.id.mainListView );
+        // Create ArrayAdapter using the planet list.
+        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, listItems);
+        mainListView.setAdapter(listAdapter);
+        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                Log.d("SONG: ",arg0.getItemAtPosition(arg2).toString());
+            }
+
+        });
+
+        listAdapter.clear();
         EditText editText = (EditText) findViewById(R.id.name);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -149,15 +169,16 @@ public class Login extends AppCompatActivity {
     }
 
     public void displayUsers() { //print all users in textview
-        ((TextView) findViewById(R.id.textView)).setText("");
+        listAdapter.clear();
         for (User user : users) {
-            ((TextView) findViewById(R.id.textView)).append(user.getName() + " is listening to " + user.getCurrentSong() + "\n");
+            //listAdapter.add(user.getName() + " is listening to " + user.getCurrentSong() + "\n");
+            listAdapter.add(user.getCurrentSong());
         }
     }
 
     //if a user needs to be updated, pass in to update or user to be removed
     public void displayUsers(User toUpdate, Boolean remove) {
-        ((TextView) findViewById(R.id.textView)).setText("");
+        listAdapter.clear();
         String id = toUpdate.getId();
         User curUser;
         for (int i = 0; i < users.size(); i++) {
@@ -171,7 +192,8 @@ public class Login extends AppCompatActivity {
                     curUser = users.get(i);
                 }
             }
-            ((TextView) findViewById(R.id.textView)).append(curUser.getName() + " is listening to " + curUser.getCurrentSong() + "\n\n");
+            //listAdapter.add(curUser.getName() + " is listening to " + curUser.getCurrentSong() + "\n\n");
+            listAdapter.add(curUser.getCurrentSong());
         }
     }
 
@@ -196,7 +218,7 @@ public class Login extends AppCompatActivity {
             }
 
             public void onProviderDisabled(String provider) {
-                ((TextView) findViewById(R.id.textView)).setText("");
+                listAdapter.clear();
             }
         };
 
@@ -257,7 +279,8 @@ public class Login extends AppCompatActivity {
                 final Track track = playerState.track;
 
                 if (track != null) {
-                    currentUser.setCurrentSong(track.name + " by " + track.artist.name + " from the album " + track.album.name);
+                    //currentUser.setCurrentSong(track.name + " by " + track.artist.name + " from the album " + track.album.name);
+                    currentUser.setCurrentSong(track.uri);
                     DBClient.writeToUser(currentUser);
                 }
             }
