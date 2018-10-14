@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,7 +32,15 @@ public class ChatPage extends Activity {
 
         // Create ArrayAdapter using the planet list.
         listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, userList);
+        //listAdapter.add();
+        mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                arg0.getItemAtPosition(arg2);
+            }
 
+        });
 
 
         // Set the ArrayAdapter as the ListView's adapter.
