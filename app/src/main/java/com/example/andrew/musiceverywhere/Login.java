@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
     private static LocationManager locationManager;
     private static User currentUser = new User("Jeff");
     private static DatabaseReference ref;
-    private static DatabaseReference ref1;
     private static final int FINE_LOCATION_PERMISSION = 1;
     private static ArrayList<User> users = new ArrayList<User>();
 
@@ -46,63 +45,57 @@ public class Login extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        //check permission for fine location, requests if not granted
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     FINE_LOCATION_PERMISSION);
         }
         else{
-            setLocationmanager();
+            setLocationmanager(); //sets location manager if granted
         }
         DBClient.writeToUser(currentUser);
 
-        FloatingActionButton getUser = (FloatingActionButton) findViewById(R.id.getUsers);
-        getUser.setOnClickListener(new View.OnClickListener() {
+        //sets up ref to user database
+        ref = DBClient.db.getReference("users/");
+        users = new ArrayList<User>();
+        Query query = ref.orderByChild("name").equalTo("Jeff"); //temp query proof of concept for getting other users from db
+
+        ((TextView) findViewById(R.id.textView)).setText("");
+        query.addChildEventListener(new ChildEventListener() { //modify this to add users to a static list, and display the list each time a user is added/removed
             @Override
-            public void onClick(View v) {
-                ref1 = DBClient.db.getReference("users/");
-                users = new ArrayList<User>();
-                Query query = ref1.orderByChild("name").equalTo("Jeff");
-                ((TextView) findViewById(R.id.textView)).setText("");
-                query.addChildEventListener(new ChildEventListener() { //modify this to add users to a static list, and display the list each time a user is added/removed
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        //Do something with the individual node here`enter code here`
-                        users.add(dataSnapshot.getValue(User.class));
-                        displayUsers();
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) { //bug where updating a user does not remove it
-                        users.remove(dataSnapshot.getValue(User.class)); //this line doesn't work, need to remove by id or update things into users
-                        users.add(dataSnapshot.getValue(User.class));
-                        displayUsers();
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        users.remove(dataSnapshot.getValue(User.class));
-                        displayUsers();
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                        displayUsers();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Log.d("QUERY", "CANCELLED");
-                    }
-                });
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //Do something with the individual node here`enter code here`
+                users.add(dataSnapshot.getValue(User.class));
+                displayUsers();
             }
 
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { //bug where updating a user does not remove it
+                displayUsers(dataSnapshot.getValue(User.class));
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                users.remove(dataSnapshot.getValue(User.class));
+                displayUsers();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                displayUsers();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("QUERY", "CANCELLED");
+            }
         });
 
-        Button changeSong = (Button)findViewById(R.id.changeSong);
+
+        Button changeSong = (Button)findViewById(R.id.changeSong); //modifies song as proof of concept for live data updates
         changeSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +106,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    @Override
+    @Override //callback function to set location manager when permission granted
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -124,22 +117,36 @@ public class Login extends AppCompatActivity {
                     setLocationmanager();
                 } else {
                   //disable location management
+                    //TODO
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
-    public void displayUsers(){
+    public void displayUsers(){ //print all users in textview
         ((TextView) findViewById(R.id.textView)).setText("");
         for(User user: users) {
             ((TextView) findViewById(R.id.textView)).append(user.getName() + " is listening to " + user.getCurrentSong() + "\n");
         }
     }
 
+    //if a user needs to be updated, pass in to update
+    public void displayUsers(User toUpdate){
+        ((TextView) findViewById(R.id.textView)).setText("");
+        String id = toUpdate.getId();
+        User curUser;
+        for(int i = 0; i < users.size(); i++) {
+            curUser = users.get(i);
+            if(curUser.getId().equals(id)){
+                users.set(i, toUpdate);
+                curUser = users.get(i);
+            }
+            ((TextView) findViewById(R.id.textView)).append(curUser.getName() + " is listening to " + curUser.getCurrentSong() + "\n");
+        }
+    }
+
+    //sets location manager to get locational updates
     public void setLocationmanager() throws SecurityException {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location lastKnownLocation = Login.locationManager.getLastKnownLocation(Login.locationManager.GPS_PROVIDER);
@@ -147,7 +154,7 @@ public class Login extends AppCompatActivity {
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                currentUser.setLocation(location.getLongitude(), location.getLatitude());
+                currentUser.setLocation(location.getLongitude(), location.getLatitude()); //should write these changes instead of displaying users
                 displayUsers();
             }
 
@@ -165,25 +172,8 @@ public class Login extends AppCompatActivity {
         };
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 0, locationListener);
-
-        if(ref == null) {
-            ref = DBClient.db.getReference("users/" + currentUser.getId());
-
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.getValue(User.class); //instead of this, get the user from the db and modify
-                    DBClient.writeToUser(user);
-                    ((TextView) findViewById(R.id.textView)).setText("");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    ((TextView) findViewById(R.id.textView)).setText("ERROR");
-                    Log.d("ERROR: ", "CANCEL USER READ");
-                }
-            });
-        }
     }
 
 }
+
+

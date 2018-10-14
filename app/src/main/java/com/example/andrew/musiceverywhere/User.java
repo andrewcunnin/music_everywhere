@@ -72,32 +72,4 @@ public class User {
         this.lat = lat;
     }
 
-    /*public String updateData(Context context){
-       try {
-            FileOutputStream out = new FileOutputStream(userData);
-            out.write(name.getBytes());
-            out.close();
-            return name;
-        }
-        catch(IOException e){
-           userData = new File("user-data.txt");
-           return "Problem with writing";
-        }
-
-    }
-
-    public String readData(Context context){
-        try {
-            FileInputStream in = new FileInputStream(userData);
-            int length = (int) userData.length();
-            byte[] bytes = new byte[length];
-            in.read(bytes);
-            in.close();
-            return new String(bytes);
-        }
-        catch(IOException e){
-            System.err.println("no data");
-            return "ERROR";
-        }
-    }*/
 }
