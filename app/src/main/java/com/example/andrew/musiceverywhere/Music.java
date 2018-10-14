@@ -33,9 +33,9 @@ import android.widget.TextView;
 
 public class Music extends AppCompatActivity {
 
-    private String albumName;
-    private String songURI;
-    private static Album album;
+    //private String albumName;
+    //private String songURI;
+    //private static Album album;
 
     private static final String PLAYLIST_ID = "spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL";
     private static final String CLIENT_ID = "168b4446175b4585abf5f0366d0c727a";
@@ -50,18 +50,18 @@ public class Music extends AppCompatActivity {
 
     }
 
-    public Music(String name, String uri){
+    /*public Music(String name, String uri){
         albumName = name;
         songURI = uri;
         album = new Album(albumName,songURI);
-    }
+    }*/
 
-    public static String getAlbumName(){
+    /*public static String getAlbumName(){
         return album.name;
     }
     public static String getAlbumURI(){
         return album.uri;
-    }
+    }*/
 
     public void retrieveImage(ImageUri IURI){
         mSpotifyAppRemote.getImagesApi().getImage(IURI);
@@ -130,70 +130,6 @@ public class Music extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        /*final PlayerApi pApi = new PlayerApi() {
-            @Override
-            public CallResult<Empty> play(String s) {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> queue(String s) {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> resume() {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> pause() {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> skipNext() {
-                return pApi.skipNext();
-            }
-
-            @Override
-            public CallResult<Empty> skipPrevious() {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> setShuffle(boolean b) {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> setRepeat(int i) {
-                return null;
-            }
-
-            @Override
-            public CallResult<Empty> seekTo(long l) {
-                return null;
-            }
-
-            @Override
-            public CallResult<PlayerState> getPlayerState() {
-                return null;
-            }
-
-            @Override
-            public Subscription<PlayerState> subscribeToPlayerState() {
-                return null;
-            }
-
-            @Override
-            public Subscription<PlayerContext> subscribeToPlayerContext() {
-                return null;
-            }
-        }*/
     }
 
 
