@@ -51,7 +51,7 @@ public class Music extends AppCompatActivity {
     }
 
     public void chatButton(View view) {
-        Intent intent2 = new Intent(Music.this, ChatPage.class);
+        Intent intent2 = new Intent(Music.this, Login.class);
         startActivity(intent2);
     }
 
@@ -122,7 +122,7 @@ public class Music extends AppCompatActivity {
     }
 
     private void connected() {
-        mSpotifyAppRemote.getPlayerApi().play("spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+        //mSpotifyAppRemote.getPlayerApi().play("spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
 
 
         mSpotifyAppRemote.getPlayerApi()

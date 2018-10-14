@@ -52,6 +52,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
@@ -65,7 +66,7 @@ public class Login extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
     public static ArrayAdapter listAdapter;
     public static ArrayList<String> songIds;
-    public static ArrayList<String> listItems = new ArrayList<>();
+    public static ArrayList<User> listItems = new ArrayList<>();
 
 
     @Override
@@ -97,13 +98,14 @@ public class Login extends AppCompatActivity {
 
         ListView mainListView = (ListView) findViewById( R.id.mainListView );
         // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, listItems);
+        listAdapter = new ArrayAdapter<User>(this, R.layout.simplerow, listItems);
         mainListView.setAdapter(listAdapter);
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                playSong(arg0.getItemAtPosition(arg2).toString());
+                playSong(((User)arg0.getItemAtPosition(arg2)).getTrackURI());
+                Log.d("SONG: ", ((User)arg0.getItemAtPosition(arg2)).getTrackURI());
             }
 
         });
@@ -172,7 +174,8 @@ public class Login extends AppCompatActivity {
         listAdapter.clear();
         for (User user : users) {
             //listAdapter.add(user.getName() + " is listening to " + user.getCurrentSong() + "\n");
-            listAdapter.add(user.getCurrentSong());
+            //listAdapter.add(user.getCurrentSong());
+            listAdapter.add(currentUser);
         }
     }
 
@@ -193,7 +196,8 @@ public class Login extends AppCompatActivity {
                 }
             }
             //listAdapter.add(curUser.getName() + " is listening to " + curUser.getCurrentSong() + "\n\n");
-            listAdapter.add(curUser.getCurrentSong());
+            //listAdapter.add(curUser.getCurrentSong());
+            listAdapter.add(currentUser);
         }
     }
 
@@ -260,9 +264,9 @@ public class Login extends AppCompatActivity {
                 });
     }
 
-    public void playSong(String trackUri){
-        if(!trackUri.equals("Nothing")) {
-            mSpotifyAppRemote.getPlayerApi().play(trackUri);
+    public void playSong(String uri){
+        if(uri != null && !uri.equals("Nothing")) {
+            mSpotifyAppRemote.getPlayerApi().play(uri);
         }
     }
 
@@ -286,7 +290,7 @@ public class Login extends AppCompatActivity {
 
                 if (track != null) {
                     //currentUser.setCurrentSong(track.name + " by " + track.artist.name + " from the album " + track.album.name);
-                    currentUser.setCurrentSong(track.uri);
+                    currentUser.setCurrentSong(track.name+ " by " + track.artist.name + " off of " + track.album.name, track.uri);
                     DBClient.writeToUser(currentUser);
                 }
             }
@@ -323,6 +327,7 @@ public class Login extends AppCompatActivity {
         }
 
     }*/
+
 }
 
 

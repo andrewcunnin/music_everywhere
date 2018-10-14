@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connected() {
-        mSpotifyAppRemote.getPlayerApi().play("spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+        //mSpotifyAppRemote.getPlayerApi().play("spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
 
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState().setEventCallback(new Subscription.EventCallback<PlayerState>() {

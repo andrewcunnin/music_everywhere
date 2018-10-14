@@ -1,6 +1,9 @@
 package com.example.andrew.musiceverywhere;
 
 import android.content.Context;
+
+import com.spotify.protocol.types.Track;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,21 +14,27 @@ public class User {
     public String id;
     private double lat, lon;
     private String name;
-    private String currentSong;
+    private String trackDisplayName;
+    private String trackURI;
 
     public User(){
+        this.lat = 0;
+        this.lon = 0;
         this.name = "";
-        this.currentSong = "nothing";
-        lat = 0;
-        lon = 0;
+        this.trackDisplayName = "";
+        this.trackURI = "";
     }
 
-    public String getCurrentSong(){
-        return currentSong;
+    public String getTrackDisplayName(){
+        return this.trackDisplayName;
+    }
+    public String getTrackURI(){
+        return this.trackURI;
     }
 
-    public void setCurrentSong(String song){
-        this.currentSong = song;
+    public void setCurrentSong(String trackDisplayName, String trackURI){
+        this.trackDisplayName = trackDisplayName;
+        this.trackURI = trackURI;
     }
 
     public String getId(){
@@ -60,16 +69,22 @@ public class User {
     public User(String name){
         //userData = new File("user-data.txt");
         this.name = name;
-        this.currentSong = "Nothing";
         this.lon = 0;
         this.lat = 0;
+        this.trackDisplayName = "";
+        this.trackURI = "";
     }
-    public User(String name, double lon, double lat){
+    public User(String name, double lon, double lat, String trackDisplayName, String trackURI){
         //userData = new File("user-data.txt");
         this.name = name;
-        this.currentSong = "";
         this.lon = lon;
         this.lat = lat;
+        this.trackDisplayName = trackDisplayName;
+        this.trackURI = trackURI;
+    }
+
+    public String toString(){
+        return name + " is listening to '" + this.trackDisplayName;
     }
 
     public String toString(double lon2, double lat2){
@@ -85,7 +100,7 @@ public class User {
 
         int dist = (int)(r * c * 3.28084);
 
-        return name + " is listening to '" + currentSong + "\nThey're " + dist + "ft away from you!";
+        return name + " is listening to '" + this.trackDisplayName + "\nThey're " + dist + "ft away from you!";
 
     }
 
