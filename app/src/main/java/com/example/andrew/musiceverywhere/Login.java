@@ -70,7 +70,7 @@ public class Login extends AppCompatActivity {
         //sets up ref to user database
         ref = DBClient.db.getReference("users/");
         users = new ArrayList<User>();
-        Query query = ref.orderByChild("name").equalTo("Jeff"); //temp query proof of concept for getting other users from db
+        Query query = ref.orderByChild("name"); //temp query proof of concept for getting other users from db
 
         ((TextView) findViewById(R.id.textView)).setText("");
         query.addChildEventListener(new ChildEventListener() { //modify this to add users to a static list, and display the list each time a user is added/removed
@@ -208,6 +208,7 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        DBClient.db.getReference("users/" + currentUser.getId()).removeValue();
         super.onStop();
         SpotifyAppRemote.CONNECTOR.disconnect(mSpotifyAppRemote);
     }
