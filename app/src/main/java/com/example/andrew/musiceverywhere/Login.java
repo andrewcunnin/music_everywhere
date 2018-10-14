@@ -105,7 +105,6 @@ public class Login extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 playSong(((User)arg0.getItemAtPosition(arg2)).getTrackURI());
-                Log.d("SONG: ", ((User)arg0.getItemAtPosition(arg2)).getTrackURI());
             }
 
         });
@@ -175,7 +174,7 @@ public class Login extends AppCompatActivity {
         for (User user : users) {
             //listAdapter.add(user.getName() + " is listening to " + user.getCurrentSong() + "\n");
             //listAdapter.add(user.getCurrentSong());
-            listAdapter.add(currentUser);
+            listAdapter.add(user);
         }
     }
 
@@ -195,9 +194,7 @@ public class Login extends AppCompatActivity {
                     curUser = users.get(i);
                 }
             }
-            //listAdapter.add(curUser.getName() + " is listening to " + curUser.getCurrentSong() + "\n\n");
-            //listAdapter.add(curUser.getCurrentSong());
-            listAdapter.add(currentUser);
+            listAdapter.add(users.get(i));
         }
     }
 
@@ -249,7 +246,6 @@ public class Login extends AppCompatActivity {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
 
                         // Now you can start interacting with App Remote
                         connected();
@@ -257,7 +253,6 @@ public class Login extends AppCompatActivity {
                     }
 
                     public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
 
                         // Something went wrong when attempting to connect! Handle errors here
                     }
@@ -297,37 +292,6 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    /*public class SpotifyClient extends AsyncTask<String, Void, Void> {
-
-        private Exception exception;
-
-        private String name;
-
-        protected Void doInBackground(String... urls) {
-            try {
-                URL url = new URL(urls[0]);
-                URLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader request = new BufferedReader(new InputStreamReader(in));
-                String line = request.readLine();
-                while(line != null){
-                    currentUser.setName(currentUser.getName() + line);
-                    line = request.readLine();
-                }
-            } catch (Exception e) {
-                this.exception = e;
-            } finally {
-            }
-            return null;
-        }
-
-
-        protected void onPostExecute(Void result) {
-            //currentUser.setName(this.name);
-        }
-
-    }*/
-
 }
 
 
