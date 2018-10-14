@@ -69,12 +69,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void connected() {
         mSpotifyAppRemote.getPlayerApi().play("spotify:user:spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
+
+        mSpotifyAppRemote.getPlayerApi()
+                .subscribeToPlayerState().setEventCallback(new Subscription.EventCallback<PlayerState>() {
+            @Override
+            public void onEvent(PlayerState playerState) {
+                final Track track = playerState.track;
+                if (track != null) {
+                    Log.d("MainActivity", track.name + " by " + track.artist.name);
+                }
+            }
+        });
     }
 
+
     @Override
-    protected void onStop() {
+    protected void onStop(){
         super.onStop();
+        SpotifyAppRemote.CONNECTOR.disconnect(mSpotifyAppRemote);
     }
+
+
 
 
     public void spotifyLogin(View view) {
