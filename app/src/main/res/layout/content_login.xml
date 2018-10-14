@@ -44,8 +44,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Display Name"
         android:inputType="textPersonName"
-        android:text="Display Name"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="31dp" />
 
