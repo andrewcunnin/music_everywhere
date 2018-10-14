@@ -50,6 +50,11 @@ public class Music extends AppCompatActivity {
 
     }
 
+    public void chatButton(View view) {
+        Intent intent2 = new Intent(Music.this, ChatPage.class);
+        startActivity(intent2);
+    }
+
     /*public Music(String name, String uri){
         albumName = name;
         songURI = uri;

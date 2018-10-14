@@ -20,7 +20,7 @@ public class ChatPage extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chat_page);
 
         // Find the ListView resource.
         mainListView = (ListView) findViewById( R.id.mainListView );
