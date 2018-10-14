@@ -103,7 +103,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                Log.d("SONG: ",arg0.getItemAtPosition(arg2).toString());
+                playSong(arg0.getItemAtPosition(arg2).toString());
             }
 
         });
@@ -258,6 +258,12 @@ public class Login extends AppCompatActivity {
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
+    }
+
+    public void playSong(String trackUri){
+        if(!trackUri.equals("Nothing")) {
+            mSpotifyAppRemote.getPlayerApi().play(trackUri);
+        }
     }
 
     @Override
