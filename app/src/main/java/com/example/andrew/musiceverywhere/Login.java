@@ -186,6 +186,11 @@ public class Login extends AppCompatActivity {
                         .showAuthView(true)
                         .build();
 
+        // Do not connect to Spotify twice
+        if (mSpotifyAppRemote != null && mSpotifyAppRemote.isConnected()) {
+            SpotifyAppRemote.CONNECTOR.disconnect(mSpotifyAppRemote);
+        }
+
         SpotifyAppRemote.CONNECTOR.connect(this, connectionParams,
                 new Connector.ConnectionListener() {
 
