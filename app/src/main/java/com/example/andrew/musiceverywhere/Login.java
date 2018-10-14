@@ -6,17 +6,23 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseError;
@@ -33,7 +39,14 @@ import com.spotify.protocol.client.Subscription;
 import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +68,9 @@ public class Login extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //HttpURLConnection urlConnection = null; to be implemented to get Spotify profiles
+        //new SpotifyClient().execute("https://api.spotify.com/v1/me");
+
         //check permission for fine location, requests if not granted
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -73,6 +89,17 @@ public class Login extends AppCompatActivity {
         Query query = ref.orderByChild("name"); //temp query proof of concept for getting other users from db
 
         ((TextView) findViewById(R.id.textView)).setText("");
+        EditText editText = (EditText) findViewById(R.id.name);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                currentUser.setName(v.getText().toString());
+                DBClient.writeToUser(currentUser);
+                return true;
+            }
+        });
+
+
         query.addChildEventListener(new ChildEventListener() { //modify this to add users to a static list, and display the list each time a user is added/removed
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -237,7 +264,36 @@ public class Login extends AppCompatActivity {
         });
 
     }
+    /*public class SpotifyClient extends AsyncTask<String, Void, Void> {
 
+        private Exception exception;
+
+        private String name;
+
+        protected Void doInBackground(String... urls) {
+            try {
+                URL url = new URL(urls[0]);
+                URLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader request = new BufferedReader(new InputStreamReader(in));
+                String line = request.readLine();
+                while(line != null){
+                    currentUser.setName(currentUser.getName() + line);
+                    line = request.readLine();
+                }
+            } catch (Exception e) {
+                this.exception = e;
+            } finally {
+            }
+            return null;
+        }
+
+
+        protected void onPostExecute(Void result) {
+            //currentUser.setName(this.name);
+        }
+
+    }*/
 }
 
 
