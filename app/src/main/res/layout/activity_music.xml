@@ -7,6 +7,47 @@
     tools:context=".Music">
 
     <Button
+        android:id="@+id/button_pause"
+        android:layout_width="68dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:onClick="pauseSong"
+        android:text="Pause"
+        app:layout_constraintEnd_toStartOf="@+id/button_play3"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toEndOf="@+id/button_play"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textSize="8sp" />
+
+    <Button
+        android:id="@+id/button_play3"
+        android:layout_width="62dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="424dp"
+        android:onClick="resumeSong"
+        android:text="Play"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_play4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_play4"
+        android:layout_width="70dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="skipNextSong"
+        android:text="Skip"
+        android:textSize="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,49 +81,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/abba" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="302dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="298dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="52dp"
-        android:text="Dancing Queen by ABBA"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.996" />
-
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="155dp"
-        android:layout_height="151dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="137dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="76dp"
+        android:onClick="playPlaylist"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/greenday" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="163dp"
-        android:layout_height="153dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="159dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:onClick="playPlaylist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,27 +109,42 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="162dp"
-        android:layout_height="167dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_width="146dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="16dp"
+        android:onClick="playPlaylist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.013"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/taylor" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="166dp"
-        android:layout_height="173dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="154dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="48dp"
+        android:onClick="playPlaylist"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:srcCompat="@drawable/taylor" />
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="69dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginTop="424dp"
+        android:onClick="skipPreviousSong"
+        android:text="Prev"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
