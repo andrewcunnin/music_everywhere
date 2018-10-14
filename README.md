@@ -12,12 +12,13 @@
 - push and pull data from Spotify in real-time
 - maintain user location
 - view other users' data in real-time
+- play song that others are listening to
 
 ## Features to Implement
 - query users by location
-- pretty UI
+- prettier UI
 - add chat feature
-- retrieve Spotify profile information
 
 ## Existing Bugs
-- user duplication when app isn't properly shutdown but user rejoins app
+- odd bugs from non-premium users
+- occasional crashes from removed users
