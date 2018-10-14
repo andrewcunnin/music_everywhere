@@ -72,4 +72,21 @@ public class User {
         this.lat = lat;
     }
 
+    public String toString(double lon2, double lat2){
+
+        double r = 6371000; // meters
+        double a1 = lat*2*Math.PI/180;
+        double a2 = lat2*2*Math.PI/180;
+        double da = (lat2-lat)*2*Math.PI/180;
+        double db = (lon2-lon)*2*Math.PI/180;
+
+        double a = Math.pow(Math.sin(da/2.0),2.0)+Math.cos(a1)*Math.cos(a2)*Math.pow(Math.sin(db),2.0);
+        double c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        int dist = (int)(r * c * 3.28084);
+
+        return name + " is listening to '" + currentSong + "\nThey're " + dist + "ft away from you!";
+
+    }
+
 }
