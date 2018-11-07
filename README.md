@@ -9,7 +9,7 @@
 - run 'git pull origin master'
 
 ## Features Implemented
-- push and pull data from Spotify in real-time
+- push and pull song from Spotify in real-time
 - maintain user location
 - view other users' data in real-time
 - play song that others are listening to
@@ -18,7 +18,8 @@
 - query users by location
 - prettier UI
 - add chat feature
+- add streaming feature to tune in in real-time
 
 ## Existing Bugs
 - odd bugs from non-premium users
-- occasional crashes from removed users
+- occasional crashes from ghost users
